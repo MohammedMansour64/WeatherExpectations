@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MainActivityTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/background_color_gradient</item>
+        <item name="actionBarStyle">@style/ActionBarTheme</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+</resources>
