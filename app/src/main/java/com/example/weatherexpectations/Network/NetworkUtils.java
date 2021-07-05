@@ -4,15 +4,11 @@ import android.content.Context;
 
 import com.example.weatherexpectations.R;
 import com.example.weatherexpectations.OpenWeatherApiInterface;
-import com.example.weatherexpectations.WeatherForecasts;
-import com.example.weatherexpectations.entity.WeatherInfo;
 import com.example.weatherexpectations.utils.SharedPreferencesHelper;
 
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -50,9 +46,13 @@ public class NetworkUtils {
 
 
 
-    public NetworkUtils(){
+    public OpenWeatherApiInterface NetworkUtilsInterface(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.openweathermap.org/data/2.5/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-
+        return mApiInterface = retrofit.create(OpenWeatherApiInterface.class);
     }
 //    public static String getResponseFromHttpUrl(URL url) throws IOException {
 //        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();

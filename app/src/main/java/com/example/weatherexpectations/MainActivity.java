@@ -51,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayoutManager mLinearLayoutManager;
     private LinearLayoutManager mLinearLayoutManager2;
 
-    public NetworkUtils mNetworkUtils;
-    OpenWeatherApiInterface mApiInterface;
+    public NetworkUtils mNetworkUtils = new NetworkUtils();
 
     HourForeCastAdapter mHourForeCastAdapter;
     DayForeCastAdapter mDayForeCastAdapter;
@@ -99,18 +98,12 @@ public class MainActivity extends AppCompatActivity {
         dayForeCastRecyclerView.setAdapter(mDayForeCastAdapter);
 
         requestWeatherInfo();
-//        getForecastInfo();
+        getForecastInfo();
     }
 
     private void requestWeatherInfo() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.openweathermap.org/data/2.5/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        mApiInterface = retrofit.create(OpenWeatherApiInterface.class);
-        NetworkUtils mNetworkUtils = new NetworkUtils();
-        Call<WeatherInfo> mWeatherInfoCall = mApiInterface.getWeatherInfo(mNetworkUtils.getQueryMap(MainActivity.this));
+        Call<WeatherInfo> mWeatherInfoCall = mNetworkUtils.NetworkUtilsInterface().getWeatherInfo(mNetworkUtils.getQueryMap(MainActivity.this));
         mWeatherInfoCall.enqueue(new Callback<WeatherInfo>() {
             @Override
             public void onResponse(@NotNull Call<WeatherInfo> call, @NotNull Response<WeatherInfo> response) {
@@ -118,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                     WeatherInfo weatherInfo = response.body();
                     System.out.println(weatherInfo.getName());
                 }else{
-                    System.out.println("Mohammed404: "+response);
+                    Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -131,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getForecastInfo(){
 
-        Call<WeatherForecasts> mForecastsCall = mNetworkUtils.getApiInterface().getForecastInfo(mNetworkUtils.getQueryMap(MainActivity.this));
+        Call<WeatherForecasts> mForecastsCall = mNetworkUtils.NetworkUtilsInterface().getForecastInfo(mNetworkUtils.getQueryMap(MainActivity.this));
         mForecastsCall.enqueue(new Callback<WeatherForecasts>() {
             @Override
             public void onResponse(Call<WeatherForecasts> call, Response<WeatherForecasts> response) {
