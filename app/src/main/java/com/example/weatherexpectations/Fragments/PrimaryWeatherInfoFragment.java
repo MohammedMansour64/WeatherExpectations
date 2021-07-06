@@ -1,6 +1,7 @@
 package com.example.weatherexpectations.Fragments;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.weatherexpectations.R;
+import com.example.weatherexpectations.entity.WeatherInfo;
 
 public class PrimaryWeatherInfoFragment extends Fragment {
     private TextView cityName;
@@ -21,6 +23,7 @@ public class PrimaryWeatherInfoFragment extends Fragment {
     private TextView highAndLowTemperature;
     private TextView weatherCondition;
     private ImageView weatherImageCondition;
+    private WeatherInfo mWeatherInfo;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +103,12 @@ public class PrimaryWeatherInfoFragment extends Fragment {
         String lowTemperatureString = "10°";
 
         // Display high/low temperature
-//        highAndLowTemperature.setText(getString(R.string.high_low_temperature, highTemperatureString, lowTemperatureString));
+       // highAndLowTemperature.setText(getString(R.string.high_low_temperature, lowTemperatureString, highTemperatureString));
 
+    }
+
+    public void updateWeatherInfo(WeatherInfo weatherInfo) {
+        mWeatherInfo = weatherInfo;
+        showWeatherInfo();
     }
 }

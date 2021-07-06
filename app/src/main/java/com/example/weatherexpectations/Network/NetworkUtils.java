@@ -9,6 +9,8 @@ import com.example.weatherexpectations.utils.SharedPreferencesHelper;
 import java.util.HashMap;
 import java.util.Locale;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -54,27 +56,7 @@ public class NetworkUtils {
 
         return mApiInterface = retrofit.create(OpenWeatherApiInterface.class);
     }
-//    public static String getResponseFromHttpUrl(URL url) throws IOException {
-//        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-//        httpURLConnection.setRequestMethod("GET");
-//        httpURLConnection.connect();
-//        try {
-//            InputStream inputStream = httpURLConnection.getInputStream();
-//            Scanner scanner = new Scanner(inputStream);
-//            scanner.useDelimiter("\\A");
-//            boolean hasInput = scanner.hasNext();
-//            String response = null;
-//            if (hasInput) {
-//                response = scanner.next();
-//            }
-//            scanner.close();
-//            Log.d(TAG , "Response" + response);
-//            System.out.println("Response" + response);
-//            return response;
-//        } finally {
-//            httpURLConnection.disconnect();
-//        }
-//    }
+
 
     public OpenWeatherApiInterface getApiInterface(){
         return mApiInterface;

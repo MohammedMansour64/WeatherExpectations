@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
 
         requestWeatherInfo();
         getForecastInfo();
+//        requestWeatherInfoTwo();
     }
 
     private void requestWeatherInfo() {
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(@NotNull Call<WeatherInfo> call, @NotNull Response<WeatherInfo> response) {
                 if (response.code() == 200){
                     WeatherInfo weatherInfo = response.body();
-                    System.out.println(weatherInfo.getName());
+                    mHeaderFragmentAdapter.updateData(weatherInfo);
                 }else{
                     Toast.makeText(MainActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                 }
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<WeatherInfo> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -128,18 +130,22 @@ public class MainActivity extends AppCompatActivity {
         mForecastsCall.enqueue(new Callback<WeatherForecasts>() {
             @Override
             public void onResponse(Call<WeatherForecasts> call, Response<WeatherForecasts> response) {
-//                if (response.code() == 200){
-//                    WeatherForecasts weatherForecasts = response.body();
-//                    System.out.println(weatherForecasts);
-//                }
+                if (response.code() == 200){
+                    WeatherForecasts weatherForecasts = response.body();
+
+                }
+                else {
+                    Toast.makeText(MainActivity.this, response.message(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(Call<WeatherForecasts> call, Throwable t) {
-
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
 
     class WeatherDataGetTask implements Runnable {
@@ -185,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void updateData(WeatherInfo weatherInfo) {
+            ((PrimaryWeatherInfoFragment)fragments.get(0)).updateWeatherInfo(weatherInfo);
         }
     }
 }
